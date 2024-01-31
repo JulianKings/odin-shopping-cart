@@ -11,6 +11,7 @@ const Router = () => {
     {
       path: "/",
       element: <MainContent />,
+      errorElement: <ErrorPage />,
       children: [
         {
             errorElement: <ErrorPage />,
