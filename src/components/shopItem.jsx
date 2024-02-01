@@ -13,6 +13,10 @@ function ShopStar({imgSrc})
     
 }
 
+ShopStar.propTypes = {
+    imgSrc: PropTypes.string,
+}
+
 function ShopItem({product, passCartArray, updateCart})
 {
     const [itemAmount, setItemAmount] = useState(1);
