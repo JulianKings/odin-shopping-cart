@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import '../style/cart.css'
-import ShopItem from "./shopItem";
 import { useOutletContext } from "react-router-dom";
 import CartComponent from "./cartItem";
 

@@ -14,8 +14,18 @@
     justify-content: center;
 }
 
-.mainContent p {
+.aboutContent p {
     margin: 0.3rem;
     padding: 0;
     align-self: flex-start;
+}
+
+.aboutContent a {
+    color: black;
+    text-decoration: none;
+}
+
+.aboutContent a:hover {
+    font-weight: bold;
+    color: rgb(8, 0, 82);
 }

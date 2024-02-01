@@ -9,6 +9,13 @@ body {
     font-family: 'Calibri', 'Roboto', sans-serif;
     font-size: 1.1rem;
     background-color: rgb(230, 233, 234, 0.4);
+    position: relative;
+}
+
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .navigation {
@@ -76,4 +83,20 @@ body {
     padding: 0.1rem 0.3rem;
     border-radius: 2rem;
 
+}
+
+.footer {
+    background-color: rgb(0, 13, 88);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
 }
