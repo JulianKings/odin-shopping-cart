@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import starIcon from '../assets/star.svg'
 import filledStarIcon from '../assets/filled_star.svg'
 import { useState } from 'react';
+import { CartItem } from '../scripts/data/cartItem';
 
-function ShopItem({product})
+function ShopStar({imgSrc})
+{
+    return (<>
+        <img src={imgSrc} />
+    </>)
+    
+}
+
+function ShopItem({product, passCartArray, updateCart})
 {
     const [itemAmount, setItemAmount] = useState(1);
     let productDescription = product.description;
@@ -18,11 +27,19 @@ function ShopItem({product})
     let starsCount = Math.round(product.rating.rate);
     for(let i = 0; i < starsCount; i++)
     {
-        productRating.push(<><img src={filledStarIcon} /></>)
+        productRating.push(filledStarIcon)
     }
     for(let i = 0; i < (5-starsCount); i++)
     {
-        productRating.push(<><img src={starIcon} /></>)
+        productRating.push(starIcon)
+    }
+
+    let productRatingResult;
+    if(productRating.length > 0)
+    {
+        productRatingResult = productRating.map((rating, index) => {
+            return <ShopStar imgSrc={rating} key={index}></ShopStar>;
+        });
     }
 
     return (<>
@@ -36,7 +53,7 @@ function ShopItem({product})
             <div className="shopItemInformation">
                 <div className="shopItemPrice">{product.price} EUR</div>
                 <div className="shopItemCategory">{product.category}</div>
-                <div className="shopItemRating">{productRating}</div>                
+                <div className="shopItemRating">{productRatingResult}</div>                
             </div>
             <div className="shopItemActions">
                 <div className="shopItemAmount">
@@ -53,7 +70,23 @@ function ShopItem({product})
                         }}>+</div>
                     </div>
                 <div className="shopItemAdd">
-                    <button type='button'>Add to cart</button>
+                    <button type='button' data-id={product.id} onClick={(e) => {
+                        let itemId = +(e.target.dataset.id);
+                        if(passCartArray.findIndex((cartItem) => cartItem.id === itemId) > -1)
+                        {
+                            let newArray = passCartArray.map((cartItem) => {
+                                if(cartItem.id === itemId)
+                                {
+                                    cartItem.amount += itemAmount;
+                                }
+                                return cartItem;
+                            });
+                            updateCart(newArray);
+                        } else {
+                            let newItem = new CartItem(itemId, itemAmount);
+                            updateCart(passCartArray.concat([newItem]));
+                        }
+                    }}>Add to cart</button>
                 </div>
                 <div className="shopItemMore">
                     <button type='button'>About this product</button>
@@ -66,6 +99,8 @@ function ShopItem({product})
 
 ShopItem.propTypes = {
     product: PropTypes.object,
+    passCartArray: PropTypes.array,
+    updateCart: PropTypes.func,
 }
 
 export default ShopItem

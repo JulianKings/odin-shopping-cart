@@ -1,8 +1,17 @@
 import './content.css'
 import shoppingCartImage from './assets/shopping-cart.svg'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useState } from 'react'
 
 function MainContent() {
+  const [cartArray, setCartArray] = useState([]);
+
+  let cartContents;
+
+  if(cartArray.length > 0)
+  {
+    cartContents = (<><div className='navigationCartCounter'>{cartArray.length}</div></>);
+  }
 
   return (
     <>
@@ -13,11 +22,12 @@ function MainContent() {
         <div className='navigationItem'><NavLink to='/about' className={({ isActive }) => isActive ? "selected" : ""}>About</NavLink></div>
       </div>
       <div className='navigationCart'>
-      <Link to='/cart'><img src={shoppingCartImage} /></Link>
+        <Link to='/cart'><img src={shoppingCartImage} /></Link>
+        {cartContents}
       </div>
     </nav>
       <div className="mainContent">
-        <Outlet />
+        <Outlet context={[cartArray, setCartArray]} />
       </div>
     </>
   )
