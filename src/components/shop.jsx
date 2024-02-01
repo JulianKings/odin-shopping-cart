@@ -11,7 +11,7 @@ function Shop()
     const [cartArray, setCartArray] = useOutletContext();
   
     useEffect(() => {
-      fetch("https://fakestoreapi.com/products?limit=15", { mode: "cors" })
+      fetch("https://fakestoreapi.com/products?limit=18", { mode: "cors" })
         .then((response) => {
           if (response.status >= 400) {
             throw new Error("server error");

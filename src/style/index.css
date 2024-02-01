@@ -1,3 +1,27 @@
+.homeBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.slideshowContainer {
+    font-size: 1.1rem;
+    background-color: white;
+    margin: 1.5rem 3rem;
+    border-radius: 0.4rem;
+    box-shadow: 0.1rem 0.1em 0.3rem rgb(0, 0, 0, 0.1);
+    flex: 1;
+    position: relative;
+    padding: 0.2rem 0;
+}
+
+.slide {
+    display: none;
+}
+
+.slide img {
+    max-width: 100%;
+}
+
 .homeContent {
     font-size: 1.1rem;
     background-color: white;
