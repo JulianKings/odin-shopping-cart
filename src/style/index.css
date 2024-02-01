@@ -12,6 +12,7 @@
     flex: 1;
     position: relative;
     padding: 0.2rem 0;
+    overflow: hidden;
 }
 
 .slide {
@@ -20,6 +21,28 @@
 
 .slide img {
     max-width: 100%;
+}
+
+.slideLeft {
+    position: relative;
+    left: -50rem;
+    animation: slideLeft 0.5s forwards;
+    
+}
+
+@keyframes slideLeft {
+    100% { left: 0; }
+}
+
+.slideRight {
+    position: relative;
+    right: -50rem;
+    animation: slideRight 0.5s forwards;
+    
+}
+
+@keyframes slideRight {
+    100% { right: 0; }
 }
 
 .homeContent {

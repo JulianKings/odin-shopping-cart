@@ -33,10 +33,17 @@ function showSlide(slide, prevSlide)
     for(let i = 0; i < slides.length; i++)
     {
         slides[i].style.display = "none";
+        slides[i].className = "slide";
     }
 
     // update slide
     slides[slide].style.display = "block";
+    if(slide < prevSlide)
+    {
+        slides[slide].className += " slideLeft";
+    } else if(slide > prevSlide) {
+        slides[slide].className += " slideRight";
+    }
     return slide;
 }
 
@@ -64,31 +71,31 @@ function Index()
     return (<>
     <div className='homeBody'>
         <div className='slideshowContainer'>
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide1} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide2} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide3} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide4} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide5} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide6} />
             </div>
 
-            <div className='slide fade'>
+            <div className='slide'>
                 <img src={slide7} />
             </div>
         </div>
