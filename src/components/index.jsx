@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../style/index.css'
 import slide1 from '../assets/slide1.png'
 import slide2 from '../assets/slide2.png'
@@ -13,8 +14,14 @@ import TopProductItem from './topProductItem'
 function showSlide(slide, prevSlide)
 {
     let slides = document.getElementsByClassName('slide');
+    let dots = document.getElementsByClassName('dot');
 
     if(slides.length === 0)
+    {
+        return 1;
+    }
+
+    if(dots.length === 0)
     {
         return 1;
     }
@@ -22,7 +29,7 @@ function showSlide(slide, prevSlide)
     // Fix weird calls
     if(slide >= slides.length)
     {
-        slide = 1;
+        slide = 0;
     }
 
     if(slide < 0)
@@ -37,6 +44,11 @@ function showSlide(slide, prevSlide)
         slides[i].className = "slide";
     }
 
+    for(let i = 0; i < dots.length; i++)
+    {
+        dots[i].className = "dot";
+    }
+
     // update slide
     slides[slide].style.display = "block";
     if(slide < prevSlide)
@@ -45,6 +57,7 @@ function showSlide(slide, prevSlide)
     } else if(slide > prevSlide) {
         slides[slide].className += " slideRight";
     }
+    dots[slide].className += " active";
     return slide;
 }
 
@@ -129,6 +142,23 @@ function Index()
 
             <div className='slide'>
                 <img src={slide7} />
+            </div>
+
+            <div className='nav'>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(0, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(1, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(2, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(3, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(4, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(5, slide);
+        setSlide(nextSlide); }}></span>
+                <span className="dot" onClick={() => { let nextSlide = showSlide(6, slide);
+        setSlide(nextSlide); }}></span>
             </div>
         </div>
 
