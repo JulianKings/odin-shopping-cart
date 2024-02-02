@@ -70,6 +70,7 @@ body {
 
 .mainContent {
     display: flex;
+    flex-direction: column;
     padding: 0.6rem 1.5rem;
 }
 

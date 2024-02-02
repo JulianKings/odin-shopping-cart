@@ -8,6 +8,7 @@ import slide6 from '../assets/slide6.png'
 import slide7 from '../assets/slide7.png'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import TopProductItem from './topProductItem'
 
 function showSlide(slide, prevSlide)
 {
@@ -51,7 +52,38 @@ function Index()
 {
     const [slide, setSlide] = useState(0);
     const [counter, setCounter] = useState(0);
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    // fetch products  
+    useEffect(() => {
+      fetch("https://fakestoreapi.com/products?limit=5", { mode: "cors" })
+        .then((response) => {
+          if (response.status >= 400) {
+            throw new Error("server error");
+          }
+          return response.json();
+        })
+        .then((response) => setProducts(response))
+        .catch((error) => setError(error))
+        .finally(() => setLoading(false));
+    }, []);
+
+    let productCaption;
+
+    if(error) { productCaption = <p>A network error was encountered</p>; }
+    if(loading) { productCaption = <p>Loading...</p> }
+
+    if(products.length > 0)
+    {
+        productCaption = products.map((product) => {
+            return <TopProductItem key={product.id} product={product} />;
+        })
+    }
+
+
+    // slide logic
     useEffect(() => {
         // rotate between slides
         const key = setInterval(() => {
@@ -69,7 +101,7 @@ function Index()
     }, [counter]);
 
     return (<>
-    <div className='homeBody'>
+    <div className='homeIntro'>
         <div className='slideshowContainer'>
             <div className='slide'>
                 <img src={slide1} />
@@ -100,14 +132,21 @@ function Index()
             </div>
         </div>
 
-        <div className='homeContent'>
+        <div className='currentDeals'>
+            <div className='dealsTitle'>Our top products</div>
+            <div className='productsContainer'>
+                {productCaption}
+            </div>
+        </div>
+    </div>
+
+    <div className='homeContent'>
             <h1>Welcome to PlaceHolder Shop!</h1>
             <p>This is the most amazing shop you have found just yet! We have the latest trends in clothing, electronics and anything you can realistically need.</p>
             <p>We even have <b>furniture</b>! Yes! We have added a bunch of furniture to our shop as part of our special 2024 Winter Campaign, do not be afraid and check it out.</p>
             <p>What about <b>SALES</b>? We have the hottest sales, from 20% to 90% on our products, just check out our <Link to='/shop'>Shop</Link> and be sure you will find something of use for you. Do you need to be warm during winter? We have the coziest coats! Do you need more space on your computer? We have the best HDD and SSD of the market! <Link to='/shop'>Just check them out</Link>!</p>
             <p>We also deliver <b>worlwide</b>! And <b>our nationwide shipping is free</b>, what else could you expect from the best shop in the last decade, PlaceHolder Shop!</p>
         </div>
-    </div>
     </>)
 }
 
