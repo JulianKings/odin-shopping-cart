@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import '../style/cart.css'
 import { useOutletContext } from "react-router-dom";
@@ -11,19 +12,25 @@ function Cart()
     const [cartArray, setCartArray] = useOutletContext();
   
     useEffect(() => {
-        Promise.all(
-            cartArray.map((cartItem) => 
-                fetch(("https://fakestoreapi.com/products/" + cartItem.id), { mode: "cors" })
-                .then((response) => {
-                    if (response.status >= 400) {
-                        throw new Error("server error");
-                    }
-                return response.json();
-                })
-                .catch((error) => setError(error)))
-        ).then(data => {
-            setProducts(data);
-        }).finally(() => setLoading(false));
+
+        if(cartArray && cartArray.length > 0)
+        {
+            Promise.all(
+                cartArray.map((cartItem) => 
+                    fetch(("https://fakestoreapi.com/products/" + cartItem.id), { mode: "cors" })
+                    .then((response) => {
+                        if (response.status >= 400) {
+                            throw new Error("server error");
+                        }
+                    return response.json();
+                    })
+                    .catch((error) => setError(error)))
+            ).then(data => {
+                setProducts(data);
+            }).finally(() => setLoading(false));
+        } else {
+            setLoading(false);
+        }
     }, []);
   
     if (error) return <p>A network error was encountered</p>;
