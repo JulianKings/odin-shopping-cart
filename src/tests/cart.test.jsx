@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { render, screen } from "@testing-library/react";
 import Cart from "../components/cart";
 import { describe, it, expect, vi } from "vitest";
